@@ -54,7 +54,8 @@ func weatherHandler(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-
+	
+	// json形式に対応していない場合
 	var requestData RequestData
 	if err := json.NewDecoder(r.Body).Decode(&requestData); err != nil {
 		writeJSONResponse(w, http.StatusBadRequest, ResponseData{
@@ -72,6 +73,7 @@ func weatherHandler(w http.ResponseWriter, r *http.Request) {
 	prefName := strings.TrimSpace(requestData.Data.PrefName)
 	cityName := strings.TrimSpace(requestData.Data.CityName)
 
+	// city_ids.jsonが見つからなかった場合
 	cityIDs, err := loadCityIDs("./city_ids.json")
 	if err != nil {
 		writeJSONResponse(w, http.StatusInternalServerError, ResponseData{
@@ -86,6 +88,7 @@ func weatherHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// 正常
 	if prefName == "" && cityName == "" {
 		writeJSONResponse(w, http.StatusOK, ResponseData{
 			ProgramType:  "Get_Weather",
@@ -99,6 +102,7 @@ func weatherHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// dataにcitynameが入っているのにpernameが入っていない場合
 	if cityName != "" && prefName == "" {
 		writeJSONResponse(w, http.StatusBadRequest, ResponseData{
 			ProgramType:  "Get_Weather",
@@ -112,6 +116,7 @@ func weatherHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// citynameがないが正常
 	if prefName != "" && cityName == "" {
 		cityMap, exists := cityIDs[prefName]
 		if !exists {
@@ -138,7 +143,7 @@ func weatherHandler(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-
+	
 	cityMap, exists := cityIDs[prefName]
 	if !exists {
 		writeJSONResponse(w, http.StatusNotFound, ResponseData{
@@ -167,6 +172,7 @@ func weatherHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// APIへのリクエスト失敗
 	url := fmt.Sprintf("https://weather.tsukumijima.net/api/forecast/city/%s", cityID)
 	resp, err := http.Get(url)
 	if err != nil {
@@ -183,6 +189,7 @@ func weatherHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer resp.Body.Close()
 
+	// APIへの問い合わせ時に何らかのエラー
 	if resp.StatusCode != http.StatusOK {
 		body, _ := ioutil.ReadAll(resp.Body)
 		writeJSONResponse(w, http.StatusBadGateway, ResponseData{
@@ -190,7 +197,7 @@ func weatherHandler(w http.ResponseWriter, r *http.Request) {
 			ReturnType:   "Error of any kind",
 			ResponseCode: "502 Bad Gateway",
 			Body: map[string]string{
-				"detail":                  "I sent a request to the API server and received a response but an error was returned.",
+				"detail": "I sent a request to the API server and received a response but an error was returned.",
 				"api_server_error_detail": string(body),
 			},
 			Response: "failure",
