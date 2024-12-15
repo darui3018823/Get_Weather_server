@@ -30,15 +30,16 @@ type ResponseData struct {
 }
 
 func main() {
-    port := os.Getenv("PORT") // Renderが提供するポート番号を取得
+    // Renderが提供するポート番号を取得
+    port := os.Getenv("PORT")
     if port == "" {
-        port = "8080"
+        port = "8080" // デフォルトポート（ローカル動作用）
     }
+
     http.HandleFunc("/weather", weatherHandler)
     log.Printf("Starting server on :%s...", port)
-    log.Fatal(http.ListenAndServe(":"+port, nil))
+    log.Fatal(http.ListenAndServe(":"+port, nil)) // 環境変数PORTを利用
 }
-
 
 func weatherHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
