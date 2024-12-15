@@ -30,10 +30,15 @@ type ResponseData struct {
 }
 
 func main() {
-	http.HandleFunc("/weather", weatherHandler)
-	log.Println("Starting server on :8080...")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+    port := os.Getenv("PORT") // Renderが提供するポート番号を取得
+    if port == "" {
+        port = "8080"
+    }
+    http.HandleFunc("/weather", weatherHandler)
+    log.Printf("Starting server on :%s...", port)
+    log.Fatal(http.ListenAndServe(":"+port, nil))
 }
+
 
 func weatherHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
