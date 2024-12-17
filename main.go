@@ -30,15 +30,15 @@ type ResponseData struct {
 }
 
 func main() {
-    // Renderが提供するポート番号を取得
-    port := os.Getenv("PORT")
-    if port == "" {
-        port = "8080" // デフォルトポート（ローカル動作用）
-    }
+	// Renderが提供するポート番号を取得
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // デフォルトポート（ローカル動作用）
+	}
 
-    http.HandleFunc("/weather", weatherHandler)
-    log.Printf("Starting server on :%s...", port)
-    log.Fatal(http.ListenAndServe(":"+port, nil)) // 環境変数PORTを利用
+	http.HandleFunc("/weather", weatherHandler)
+	log.Printf("Starting server on :%s...", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil)) // 環境変数PORTを利用
 }
 
 func weatherHandler(w http.ResponseWriter, r *http.Request) {
@@ -48,13 +48,14 @@ func weatherHandler(w http.ResponseWriter, r *http.Request) {
 			ReturnType:   "Error",
 			ResponseCode: "405 Method Not Allowed",
 			Body: map[string]string{
-				"detail": "Only POST method is allowed.",
+				"detail":       "Only POST method is allowed.",
+				"example_json": "https://github.com/darui3018823/Get_Weather_server/blob/main/example.json",
 			},
 			Response: "failure",
 		})
 		return
 	}
-	
+
 	// json形式に対応していない場合
 	var requestData RequestData
 	if err := json.NewDecoder(r.Body).Decode(&requestData); err != nil {
@@ -63,7 +64,8 @@ func weatherHandler(w http.ResponseWriter, r *http.Request) {
 			ReturnType:   "Error",
 			ResponseCode: "400 Bad Request",
 			Body: map[string]string{
-				"detail": "Invalid JSON format.",
+				"detail":       "Invalid JSON format.",
+				"example_json": "https://github.com/darui3018823/Get_Weather_server/blob/main/example.json",
 			},
 			Response: "failure",
 		})
@@ -143,7 +145,7 @@ func weatherHandler(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	
+
 	cityMap, exists := cityIDs[prefName]
 	if !exists {
 		writeJSONResponse(w, http.StatusNotFound, ResponseData{
@@ -197,7 +199,7 @@ func weatherHandler(w http.ResponseWriter, r *http.Request) {
 			ReturnType:   "Error of any kind",
 			ResponseCode: "502 Bad Gateway",
 			Body: map[string]string{
-				"detail": "I sent a request to the API server and received a response but an error was returned.",
+				"detail":                  "I sent a request to the API server and received a response but an error was returned.",
 				"api_server_error_detail": string(body),
 			},
 			Response: "failure",
