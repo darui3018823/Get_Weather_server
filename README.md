@@ -98,3 +98,8 @@ If you have any questions or concerns, please contact me via one of the followin
 - **Discord**: [darui3018823](https://discord.com/users/973782871963762698)  
 - **Google Forms**: [daruks.com/Contact](https://daruks.com/Contact/)
 
+## Others
+### About the Japanese version of "README.md"
+The Japanese version can be accessed from the following link.
+日本語版のREADME.mdは以下よりアクセスできます。
+[README_ja.md]()
