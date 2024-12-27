@@ -100,6 +100,6 @@ If you have any questions or concerns, please contact me via one of the followin
 
 ## Others
 ### About the Japanese version of "README.md"
-The Japanese version can be accessed from the following link.
-日本語版のREADME.mdは以下よりアクセスできます。
+The Japanese version can be accessed from the following link.<br>
+日本語版のREADME.mdは以下よりアクセスできます。<br>
 [README_ja.md](https://github.com/darui3018823/Get_Weather_server/blob/main/README_ja.md)
