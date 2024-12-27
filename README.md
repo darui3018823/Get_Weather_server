@@ -102,4 +102,4 @@ If you have any questions or concerns, please contact me via one of the followin
 ### About the Japanese version of "README.md"
 The Japanese version can be accessed from the following link.
 日本語版のREADME.mdは以下よりアクセスできます。
-[README_ja.md]()
+[README_ja.md](https://github.com/darui3018823/Get_Weather_server/blob/main/README_ja.md)
