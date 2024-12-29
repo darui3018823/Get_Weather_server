@@ -103,3 +103,9 @@ If you have any questions or concerns, please contact me via one of the followin
 The Japanese version can be accessed from the following link.<br>
 日本語版のREADME.mdは以下よりアクセスできます。<br>
 [README_ja.md](https://github.com/darui3018823/Get_Weather_server/blob/main/README_ja.md)
+
+### Special note
+The English version will be updated at the same time as the Japanese version.
+However, the Japanese version is easier to understand in terms of meaning and other aspects,
+so we recommend reading the Japanese version first. 
+Thank you.
