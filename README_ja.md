@@ -40,7 +40,7 @@ API利用のためのJSONテンプレートについては、以下のファイ�
 ## 使用方法
 
 以下のエンドポイントにリクエストを送信することで、このAPIを利用できます：  
-`https://daruks.com/weather`
+`https://api.daruks.com/weather`
 
 <br>
 
