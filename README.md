@@ -41,7 +41,7 @@ For an example JSON template for API usage, please refer to the following file:
 ## How to Use
 
 You can use this API by sending requests to the following endpoint:  
-`https://daruks.com/weather`
+`https://api.daruks.com/weather`
 
 <br>
 
